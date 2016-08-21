@@ -49,11 +49,11 @@ class PlayersController < ApplicationController
 
   private
 
-    def set_player
-      @player = Player.find(params[:id])
-    end
+  def set_player
+    @player = Player.find(params[:id])
+  end
 
-    def player_params
-      params.require(:player).permit(:given_name, :surname, :team, :position, :points_per_game, :rebounds_per_game, :assists_per_game, :twitter, :instagram)
-    end
+  def player_params
+    params.require(:player).permit(:given_name, :surname, :team, :position, :points_per_game, :rebounds_per_game, :assists_per_game, :twitter, :instagram)
+  end
 end
