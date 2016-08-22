@@ -5,7 +5,6 @@ class FavoritesController < ProtectedController
   # GET /favorites.json
   def index
     @favorites = current_user.favorites
-
     render json: @favorites
   end
 
