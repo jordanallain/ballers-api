@@ -1,4 +1,4 @@
-class FavoritesController < ApplicationController
+class FavoritesController < ProtectedController
   before_action :set_favorite, only: [:show, :update, :destroy]
 
   # GET /favorites
@@ -54,6 +54,6 @@ class FavoritesController < ApplicationController
   end
 
   def favorite_params
-    params.require(:favorite).permit(:user_id, :player_id)
+    params.require(:favorite, :user_id, :player_id)
   end
 end
