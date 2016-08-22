@@ -54,6 +54,6 @@ class FavoritesController < ProtectedController
   end
 
   def favorite_params
-    params.require(:favorite, :user_id, :player_id)
+    params.require(:favorite).permit(:player_id)
   end
 end
