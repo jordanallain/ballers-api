@@ -1,57 +1,11 @@
-1.  [Download](../../archive/master.zip) this template.
-1.  Unzip and rename the template directory.
-1.  Empty [`README.md`](README.md) and fill with your own content.
-1.  Move into the new project and `git init`.
-1.  Install dependencies with `bundle install`.
-1.  Rename your app module in `config/application.rb` (change
-    `RailsApiTemplate`).
-1.  Rename your project database in `config/database.yml` (change
-    `'rails-api-template'`).
-1.  Create a `.env` for sensitive settings (`touch .env`).
-1.  Generate new `development` and `test` secrets (`bundle exec rake secret`).
-1.  Store them in `.env` with keys SECRET_KEY_BASE_<DEVELOPMENT|TEST>
-    respectively.
-1.  In order to make requests from your deployed client application, you will
-    need to set `CLIENT_ORIGIN` in the environment of the production API (e.g.
-    `https://<github-username>.github.io`).
-1.  Setup your database with `bin/rake db:nuke_pave` or `bundle exec rake
-    db:nuke_pave`.
-1.  Run the API server with `bin/rails server` or `bundle exec rails server`.
+<h1>bALLers</h1>
 
-## Structure
+<h2>Front End Repo</h2>
+<a href="https://github.com/jordanallain/ballers-front-end"> bALLers </a>
 
-This template follows the standard project structure in Rails 4.
+<h1>API</h1>
 
-`curl` command scripts are stored in [`scripts`](scripts) with names that
-correspond to API actions.
-
-User authentication is built-in.
-
-## Tasks
-
-Developers should run these often!
-
--   `rake routes` lists the endpoints available in your API.
--   `rake test` runs automated tests.
--   `rails console` opens a REPL that pre-loads the API.
--   `rails db` opens your database client and loads the correct database.
--   `rails server` starts the API.
--   `scripts/*.sh` run various `curl` commands to test the API. See below.
-
-<!-- TODO -   `rake nag` checks your code style. -->
-<!-- TODO -   `rake lint` checks your code for syntax errors. -->
-
-## API
-
-Use this as the basis for your own API documentation. Add a new third-level
-heading for your custom entities, and follow the pattern provided for the
-built-in user authentication documentation.
-
-Scripts are included in [`scripts`](scripts) to test built-in actions. Add your
-own scripts to test your custom API. As an alternative, you can write automated
-tests in RSpec to test your API.
-
-### Authentication
+<h3>Authentication</h3>
 
 | Verb   | URI Pattern            | Controller#Action |
 |--------|------------------------|-------------------|
@@ -240,7 +194,52 @@ Content-Type: application/json; charset=utf-8
 }
 ```
 
-## [License](LICENSE)
+<h3>Players</h3>
 
-Source code distributed under the MIT license. Text and other assets copyright
-General Assembly, Inc., all rights reserved.
+| Verb   | URI Pattern            | Controller#Action |
+|--------|------------------------|-------------------|
+| POST   | `/players`             | `players#create`    |
+| POST   | `/favorites`             | `favorites#create`    |
+| GET  | `/favorites` | `favorites#index`  |
+| DELETE | `/favorites`        | `favorites#destroy`   |
+
+
+<h2>cURL</h2>
+
+```sh
+curl --include --request POST http://localhost:3000/players \
+  --header "Content-Type: application/json" \
+  --data '{
+    "player": {
+      "given_name": "name",
+      "surname": "surname",
+      "team": "team name",
+      "position": "position",
+      "points_per_game": "points_per_game",
+      "rebounds_per_game": "rebounds_per_game",
+      "assists_per_game": "assists_per_game",
+      "twitter": "twitter",
+      "instagram": "instagram"
+    }
+  }'
+```
+
+```sh
+curl --include --request POST http://localhost:3000/players \
+  --header "Content-Type: application/json" \
+  --data '{
+    "favorite": {
+      "user_id": 1,
+      "player_id": 1
+    }
+  }'
+```
+
+```sh
+curl --include --request GET http://localhost:3000/favorites
+```
+
+```sh
+curl --include --request DELETE http://localhost:3000/favorites/$ID \
+  --header "Authorization: Token token=$TOKEN"
+```
